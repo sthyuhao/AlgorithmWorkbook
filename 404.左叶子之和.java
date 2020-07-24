@@ -18,20 +18,24 @@ import java.util.Queue;
  * }
  */
 class Solution {
+    int res = 0;
     public int sumOfLeftLeaves(TreeNode root) {
-        int res = 0;
-        helper(root, res);
+        helper(root);
         return res;
     }
 
-    void helper(TreeNode root, int res) {
+    void helper(TreeNode root) {
         if (root == null) {
             return;
         }
 
-        if (root.left == null && root.right == null) {
-            
+        //  判断节点是否为左叶子节点
+        if (root.left != null && root.left.left == null && root.left.right == null) {
+            res += root.left.val;
         }
+
+        helper(root.left);
+        helper(root.right);
     }
 }
 // @lc code=end
