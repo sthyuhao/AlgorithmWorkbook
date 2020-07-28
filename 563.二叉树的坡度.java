@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * @lc app=leetcode.cn id=563 lang=java
  *
@@ -15,17 +18,26 @@
  * }
  */
 class Solution {
+    List<Integer> list = new ArrayList<>();
+    int res = 0;
     public int findTilt(TreeNode root) {
-
+        dfs(root);
+        return res;
     }
 
-    void dfs(TreeNode root) {
+    int dfs(TreeNode root) {
         if (root == null) {
-            return;
+            return 0;
         }
 
-        dfs(root.left);
-        dfs(root.right);
+        if (root.left == null && root.right == null) {
+            return root.val;
+        }
+
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+        res += Math.abs(left - right);
+        return left + right + root.val;
     }
 }
 // @lc code=end
